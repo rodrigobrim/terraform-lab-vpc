@@ -1,2 +1,3 @@
 .terraform.d/
 terraform/.terraform*
+main.tf

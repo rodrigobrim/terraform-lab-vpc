@@ -5,15 +5,17 @@ provider "google" {
 }
 
 # VPC
-resource "google_compute_network" "vpc" {
+resource "{{ tfvar.vpc.resource_name }}" "vpc" {
   name                    = "{{ tfvar.project }}-vpc"
   auto_create_subnetworks = "false"
 }
 
-# Subnet
-resource "google_compute_subnetwork" "subnet" {
+# Subnets
+{% for key,values in tfvar.vpc.subnets.items() %}
+resource "{{ key }}" "subnet" {
   name          = "{{ tfvar.project }}-subnet"
   region        = "{{ tfvar.region }}"
-  network       = google_compute_network.vpc.name
-  ip_cidr_range = "{{ tfvar.vpc.ip_cidr_range }}"
+  network       = "{{ tfvar.vpc.resource_name }}"
+  ip_cidr_range = "{{ values.ip_cidr_range }}"
 }
+{% endfor %}

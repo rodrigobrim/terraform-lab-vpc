@@ -1,0 +1,19 @@
+provider "google" {
+  project     = "{{ tfvar.project }}"
+  region      = "{{ tfvar.region }}"
+  credentials = file("{{ tfvar.credentials }}")
+}
+
+# VPC
+resource "google_compute_network" "vpc" {
+  name                    = "{{ tfvar.project }}-vpc"
+  auto_create_subnetworks = "false"
+}
+
+# Subnet
+resource "google_compute_subnetwork" "subnet" {
+  name          = "{{ tfvar.project }}-subnet"
+  region        = "{{ tfvar.region }}"
+  network       = google_compute_network.vpc.name
+  ip_cidr_range = "{{ tfvar.ip_cidr_range }}"
+}

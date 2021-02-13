@@ -1,3 +1,0 @@
----
-backend_credentials: "/keys/gcp-admin.json"
-backend_bucket: "brim-terraform-state-vpc

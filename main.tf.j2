@@ -15,7 +15,7 @@ resource "{{ tfvar.vpc.resource_name }}" "vpc" {
 resource "{{ key }}" "subnet" {
   name          = "{{ tfvar.project }}-subnet"
   region        = "{{ tfvar.region }}"
-  network       = "{{ tfvar.vpc.resource_name }}"
+  network       = "{{ tfvar.project }}-vpc"
   ip_cidr_range = "{{ values.ip_cidr_range }}"
 }
 {% endfor %}

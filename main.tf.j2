@@ -1,21 +1,21 @@
 provider "google" {
-  project     = "{{ tfvar.project }}"
-  region      = "{{ tfvar.region }}"
-  credentials = file("{{ tfvar.credentials }}")
+  project     = "{{ tfvars.project }}"
+  region      = "{{ tfvars.region }}"
+  credentials = file("{{ tfvars.credentials }}")
 }
 
 # VPC
-resource "{{ tfvar.vpc.resource_name }}" "vpc" {
-  name                    = "{{ tfvar.project }}-vpc"
+resource "{{ tfvars.vpc.resource_name }}" "vpc" {
+  name                    = "{{ tfvars.project }}-vpc"
   auto_create_subnetworks = "false"
 }
 
 # Subnets
-{% for key,values in tfvar.vpc.subnets.items() %}
+{% for key,values in tfvars.vpc.subnets.items() %}
 resource "{{ key }}" "subnet" {
-  name          = "{{ tfvar.project }}-subnet"
-  region        = "{{ tfvar.region }}"
-  network       = "{{ tfvar.project }}-vpc"
+  name          = "{{ tfvars.project }}-subnet"
+  region        = "{{ tfvars.region }}"
+  network       = "{{ tfvars.project }}-vpc"
   ip_cidr_range = "{{ values.ip_cidr_range }}"
 }
 {% endfor %}

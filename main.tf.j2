@@ -5,16 +5,16 @@ provider "google" {
 }
 
 # VPC
-resource "{{ tfvars.resource_name }}" "vpc" {
+resource "google_compute_network" "{{ tfvars.project }}" {
   name                    = "{{ tfvars.project }}-vpc"
   auto_create_subnetworks = "false"
 }
 
 # Subnets
 {% for key,values in tfvars.subnets.items() %}
-resource "{{ key }}" "subnet" {
+resource "google_compute_subnetwork" "{{ key }}" {
   depends_on = [
-    {{ tfvars.resource_name }}.vpc,
+    google_compute_network.vpc,
   ]
   name          = "{{ tfvars.project }}-subnet"
   region        = "{{ tfvars.region }}"

@@ -5,13 +5,13 @@ provider "google" {
 }
 
 # VPC
-resource "{{ tfvars.vpc.resource_name }}" "vpc" {
+resource "{{ tfvars.resource_name }}" "vpc" {
   name                    = "{{ tfvars.project }}-vpc"
   auto_create_subnetworks = "false"
 }
 
 # Subnets
-{% for key,values in tfvars.vpc.subnets.items() %}
+{% for key,values in tfvars.subnets.items() %}
 resource "{{ key }}" "subnet" {
   name          = "{{ tfvars.project }}-subnet"
   region        = "{{ tfvars.region }}"

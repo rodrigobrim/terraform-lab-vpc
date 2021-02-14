@@ -14,7 +14,7 @@ resource "google_compute_network" "{{ tfvars.project }}" {
 {% for key,values in tfvars.subnets.items() %}
 resource "google_compute_subnetwork" "{{ key }}" {
   depends_on = [
-    google_compute_network.vpc,
+    google_compute_network.{{ tfvars.project }},
   ]
   name          = "{{ tfvars.project }}-subnet"
   region        = "{{ tfvars.region }}"

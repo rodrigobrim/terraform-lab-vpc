@@ -13,6 +13,9 @@ resource "{{ tfvars.resource_name }}" "vpc" {
 # Subnets
 {% for key,values in tfvars.subnets.items() %}
 resource "{{ key }}" "subnet" {
+  depends_on [
+    {{ tfvars.resource_name }}.vpc,
+  ]
   name          = "{{ tfvars.project }}-subnet"
   region        = "{{ tfvars.region }}"
   network       = "{{ tfvars.project }}-vpc"

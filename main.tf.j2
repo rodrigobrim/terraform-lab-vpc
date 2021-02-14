@@ -1,5 +1,5 @@
 provider "google" {
-  project     = "{{ tfvars.project }}"
+  project     = "{{ tfvars.project_id }}"
   region      = "{{ tfvars.region }}"
   credentials = file("{{ tfvars.credentials }}")
 }
